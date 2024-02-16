@@ -1,5 +1,5 @@
 name: Build and Deploy NestJS GraphQL Application
-repoFullName: niharkushwah-niharkushwah/nestjs-graphql
+repoFullName: Vanshiljain-Vanshiljain/nestjs-graphql-1
 on:
   push:
     branches:
