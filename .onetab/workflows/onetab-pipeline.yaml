@@ -1,0 +1,40 @@
+name: Build and Deploy NestJS GraphQL Application
+repoFullName: niharkushwah-niharkushwah/nestjs-graphql
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-lint:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v3
+        name: Setup repository
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Build
+        run: |
+          npm run build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: run-lint
+    steps:
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: firebase deploy --token '1//0gULYX7V6H6X2CgYIARAAGBASNwF-L9IrI93CK2X2lioDI82felcXrgqG7TPqLsYMtH3M6QZ5y9sT_GwdHrc-DSQCFEPiNEoH51Y'
